@@ -74,5 +74,4 @@ Android 通用的ViewPager的指示器
 </FrameLayout>
 
 ```
-
-### 关于作者
+* 简书: https://www.jianshu.com/p/42811a7c708c 
