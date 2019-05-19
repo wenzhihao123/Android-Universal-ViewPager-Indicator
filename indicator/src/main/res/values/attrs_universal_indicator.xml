@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Indicator">
+        <!--未选中的指示器颜色-->
+        <attr name="normal_color" format="reference|color" />
+        <!--选中的指示器颜色-->
+        <attr name="selected_color" format="reference|color" />
+        <!--指示器每个item之间的间距-->
+        <attr name="spacing" format="dimension" />
+        <!--指示器排列方向-->
+        <attr name="orientation" format="enum">
+            <enum name="horizontal" value="0" />
+            <enum name="vertical" value="1" />
+        </attr>
+
+        <!--指示器类型 命名规则：未选中样式_选中样式-->
+        <attr name="style" format="enum">
+            <!--都是圆点-->
+            <enum name="circle_circle" value="0"/>
+            <!--都是方形-->
+            <enum name="rect_rect" value="1" />
+            <!--未选中是圆点，选中是方形-->
+            <enum name="circle_rect" value="2" />
+        </attr>
+
+        <!--都是圆点指示器半径大小-->
+        <attr name="circle_circle_radius" format="dimension" />
+
+        <!--都是方形指示器长度-->
+        <attr name="rect_rect_itemWidth" format="dimension" />
+        <!--都是方形指示器高度-->
+        <attr name="rect_rect_itemHeight" format="dimension" />
+        <!--都是方形指示器圆角-->
+        <attr name="rect_rect_corner" format="dimension" />
+
+        <!--circle_rect 模式圆点半径-->
+        <attr name="circle_rect_radius" format="dimension" />
+        <!--circle_rect 模式方形宽度-->
+        <attr name="circle_rect_itemWidth" format="dimension" />
+        <!--circle_rect 模式方形高度-->
+        <attr name="circle_rect_itemHeight" format="dimension" />
+        <!--circle_rect 模式方形圆角-->
+        <attr name="circle_rect_corner" format="dimension" />
+
+    </declare-styleable>
+</resources>
