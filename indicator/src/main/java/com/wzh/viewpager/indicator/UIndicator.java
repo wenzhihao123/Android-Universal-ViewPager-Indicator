@@ -136,77 +136,145 @@ public class UIndicator extends View implements ViewPager.OnPageChangeListener {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
         switch (mStyle) {
             case STYLE_CIRCLR_CIRCLE:
-                width = 2 * circleCircleRadius * itemCount + (itemCount - 1) * spacing;
-                height = Math.max(heightSize, 2 * circleCircleRadius);
+                if (orientation == HORIZONTAL){
+                    width = 2 * circleCircleRadius * itemCount + (itemCount - 1) * spacing;
+                    height = Math.max(heightSize, 2 * circleCircleRadius);
+                } else {
+                    height = 2 * circleCircleRadius * itemCount + (itemCount - 1) * spacing;
+                    width = Math.max(widthSize, 2 * circleCircleRadius);
+                }
                 break;
             case STYLE_RECT_RECT:
-                width = rectRectItemWidth * itemCount + (itemCount - 1) * spacing;
-                height = Math.max(heightSize, rectRectItemHeight);
+                if (orientation == HORIZONTAL){
+                    width = rectRectItemWidth * itemCount + (itemCount - 1) * spacing;
+                    height = Math.max(heightSize, rectRectItemHeight);
+                } else {
+                    height = rectRectItemHeight * itemCount + (itemCount - 1) * spacing;
+                    width = Math.max(widthSize, rectRectItemWidth);
+                }
                 break;
             case STYLE_CIRCLR_RECT:
-                int normalItemWidth = circleRectRadius * 2;
-                width = (itemCount - 1) * normalItemWidth + circleRectItemWidth + (itemCount - 1) * spacing;
-                int tempHeight = Math.max(circleRectItemHeight, circleRectRadius * 2);
-                height = Math.max(heightSize, tempHeight);
+                if (orientation == HORIZONTAL){
+                    int normalItemWidth = circleRectRadius * 2;
+                    width = (itemCount - 1) * normalItemWidth + circleRectItemWidth + (itemCount - 1) * spacing;
+                    int tempHeight = Math.max(circleRectItemHeight, circleRectRadius * 2);
+                    height = Math.max(heightSize, tempHeight);
+                } else {
+                    int normalItemHeight = circleRectRadius * 2;
+                    height = (itemCount - 1) * normalItemHeight + circleRectItemHeight + (itemCount - 1) * spacing;
+                    int tempWidth = Math.max(circleRectItemWidth, circleRectRadius * 2);
+                    width = Math.max(widthSize, tempWidth);
+                }
+
                 break;
         }
+
         setMeasuredDimension(width, height);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        switch (mStyle) {
+        if (orientation == HORIZONTAL) {
+            switch (mStyle) {
 
-            case STYLE_CIRCLR_CIRCLE:
-                float cy = height / 2;
-                for (int i = 0; i < itemCount; i++) {
-                    int cx = (i + 1) * circleCircleRadius + i * spacing;
-                    //全部绘制圆点，画笔的区别
-                    canvas.drawCircle(cx, cy, circleCircleRadius, i == selection ? selectedPaint : normalPaint);
-                }
-                break;
-
-            case STYLE_RECT_RECT:
-                for (int i = 0; i < itemCount; i++) {
-                    int left = i * rectRectItemWidth + i * spacing;
-                    mRectF.set(left, 0, left + rectRectItemWidth, rectRectItemHeight);
-                    //全部绘制圆角矩形，画笔的区别
-                    canvas.drawRoundRect(mRectF, rectRectCorner, rectRectCorner, i == selection ? selectedPaint : normalPaint);
-                }
-                break;
-
-            case STYLE_CIRCLR_RECT:
-                for (int i = 0; i < itemCount; i++) {
-                    int left = selection * (circleRectRadius * 2 + spacing);
-                    int top;
-                    if (selection == i) {
-                        //选中的绘制圆角矩形
-                        top = (height - circleRectItemHeight) / 2;
-                        mRectF.set(left, top, left + circleRectItemWidth, circleRectItemHeight + top);
-                        canvas.drawRoundRect(mRectF, circleRectCorner, circleRectCorner, selectedPaint);
-                    } else {
-                        //未选中的绘制圆点，距离需要判断position在选中的左边或者右边，从而确定cx
-                        top = (height - circleRectRadius * 2) / 2;
-                        int cx = 0;
-                        float cy1 = circleRectRadius + top;
-                        if (selection < i) {
-                            cx = (i - 1) * circleRectRadius * 2 + i * spacing + circleRectItemWidth + circleRectRadius;
-                        } else {
-                            cx = i * (circleRectRadius * 2) + i * spacing + circleRectRadius;
-                        }
-                        canvas.drawCircle(cx, cy1, circleRectRadius, normalPaint);
+                case STYLE_CIRCLR_CIRCLE:
+                    float cy = height / 2;
+                    for (int i = 0; i < itemCount; i++) {
+                        int cx = (i + 1) * circleCircleRadius + i * spacing;
+                        //全部绘制圆点，画笔的区别
+                        canvas.drawCircle(cx, cy, circleCircleRadius, i == selection ? selectedPaint : normalPaint);
                     }
+                    break;
 
-                }
-                break;
+                case STYLE_RECT_RECT:
+                    for (int i = 0; i < itemCount; i++) {
+                        int left = i * rectRectItemWidth + i * spacing;
+                        mRectF.set(left, 0, left + rectRectItemWidth, rectRectItemHeight);
+                        //全部绘制圆角矩形，画笔的区别
+                        canvas.drawRoundRect(mRectF, rectRectCorner, rectRectCorner, i == selection ? selectedPaint : normalPaint);
+                    }
+                    break;
+
+                case STYLE_CIRCLR_RECT:
+                    for (int i = 0; i < itemCount; i++) {
+                        int left = selection * (circleRectRadius * 2 + spacing);
+                        int top;
+                        if (selection == i) {
+                            //选中的绘制圆角矩形
+                            top = (height - circleRectItemHeight) / 2;
+                            mRectF.set(left, top, left + circleRectItemWidth, circleRectItemHeight + top);
+                            canvas.drawRoundRect(mRectF, circleRectCorner, circleRectCorner, selectedPaint);
+                        } else {
+                            //未选中的绘制圆点，距离需要判断position在选中的左边或者右边，从而确定cx
+                            top = (height - circleRectRadius * 2) / 2;
+                            int cx = 0;
+                            float cy1 = circleRectRadius + top;
+                            if (selection < i) {
+                                cx = (i - 1) * circleRectRadius * 2 + i * spacing + circleRectItemWidth + circleRectRadius;
+                            } else {
+                                cx = i * (circleRectRadius * 2) + i * spacing + circleRectRadius;
+                            }
+                            canvas.drawCircle(cx, cy1, circleRectRadius, normalPaint);
+                        }
+
+                    }
+                    break;
+            }
+        } else {
+            switch (mStyle) {
+
+                case STYLE_CIRCLR_CIRCLE:
+                    float cx = width / 2;
+                    for (int i = 0; i < itemCount; i++) {
+                        int cy = i * (circleCircleRadius * 2 + spacing)+ circleCircleRadius;
+                        //全部绘制圆点，画笔的区别
+                        canvas.drawCircle(cx, cy, circleCircleRadius, i == selection ? selectedPaint : normalPaint);
+                    }
+                    break;
+
+                case STYLE_RECT_RECT:
+                    for (int i = 0; i < itemCount; i++) {
+                        int top = i * rectRectItemHeight + i * spacing;
+                        int left = (width - rectRectItemWidth) / 2;
+                        mRectF.set(left, top, left + rectRectItemWidth, top + rectRectItemHeight);
+                        //全部绘制圆角矩形，画笔的区别
+                        canvas.drawRoundRect(mRectF, rectRectCorner, rectRectCorner, i == selection ? selectedPaint : normalPaint);
+                    }
+                    break;
+
+                case STYLE_CIRCLR_RECT:
+                    for (int i = 0; i < itemCount; i++) {
+                        if (selection == i) {
+                            int left = (width - circleRectItemWidth) / 2;
+                            //选中的绘制圆角矩形
+                            int top = selection * (circleRectRadius * 2 + spacing);
+                            mRectF.set(left, top, left + circleRectItemWidth, top + circleRectItemHeight);
+                            canvas.drawRoundRect(mRectF, circleRectCorner, circleRectCorner, selectedPaint);
+                        } else {
+                            //未选中的绘制圆点，距离需要判断position在选中的左边或者右边，从而确定cx
+                            int cx1 = (width - 2 * circleRectRadius) / 2 + circleRectRadius;
+                            float cy1 = 0;
+                            if (selection < i) {
+                                cy1 = (i - 1) * circleRectRadius * 2 + i * spacing + circleRectItemHeight + circleRectRadius;
+                            } else {
+                                cy1 = i * (circleRectRadius * 2) + i * spacing + circleRectRadius;
+                            }
+                            canvas.drawCircle(cx1, cy1, circleRectRadius, normalPaint);
+                        }
+
+                    }
+                    break;
+            }
         }
     }
 
     /**
      * 关联ViewPager
+     *
      * @param viewPager
      */
     public void attachToViewPager(ViewPager viewPager) {
@@ -214,9 +282,9 @@ public class UIndicator extends View implements ViewPager.OnPageChangeListener {
         PagerAdapter pagerAdapter = viewPager.getAdapter();
         if (pagerAdapter != null) {
             //TODO 如果项目使用了阿里开源库，UltraViewPager，想要兼容需要用以下方式获取 itemCount，否则去除这个if条件
-            if (pagerAdapter instanceof UltraViewPagerAdapter){
+            if (pagerAdapter instanceof UltraViewPagerAdapter) {
                 //从UltraViewPagerAdapter获取真实的个数
-                itemCount = ((UltraViewPagerAdapter)pagerAdapter).getRealCount();
+                itemCount = ((UltraViewPagerAdapter) pagerAdapter).getRealCount();
             } else {
                 itemCount = pagerAdapter.getCount();
             }
