@@ -2,7 +2,7 @@
 Android 通用的ViewPager的指示器
 
 ### 效果图
-![效果图](https://upload-images.jianshu.io/upload_images/2018489-6521712a20684369.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![效果图](https://user-gold-cdn.xitu.io/2019/5/20/16ad3d51d0390859?w=1080&h=1920&f=png&s=47001)
 
 ### 自定义属性
 
@@ -11,6 +11,7 @@ Android 通用的ViewPager的指示器
 | `normal_color` | 未选中的指示器颜色 | 
 | `selected_color `| 选中的指示器颜色 | 
 | `spacing` | 指示器每个item之间的间距 | 
+|` orientation` | 设置指示器排列方向，枚举类型，有`horizontal`和`vertical` | 
 |` style` | 枚举类型，有如下几种类型 | 
 
 样式说明
@@ -70,6 +71,7 @@ Android 通用的ViewPager的指示器
         app:normal_color="#99ffffff"
         app:selected_color="#ffffff"
         app:spacing="10dp"
+        app:orientation="horizontal"
         app:style="circle_rect" />
 </FrameLayout>
 
