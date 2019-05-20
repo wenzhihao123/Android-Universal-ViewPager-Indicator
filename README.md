@@ -76,4 +76,20 @@ Android 通用的ViewPager的指示器
 </FrameLayout>
 
 ```
+在代码里需要关联上我们的ViewPager：
+
+```
+//普通ViewPager使用
+...
+ViewPager mViewPager1 = findViewById(R.id.viewPager1);
+UIndicator uIndicator1 = findViewById(R.id.indicator1);
+uIndicator1.attachToViewPager(mViewPager1);
+
+// UltraViewPager使用
+...
+UltraViewPager mViewPager4 = findViewById(R.id.viewPager4);
+UIndicator uIndicator4 = findViewById(R.id.indicator4);
+uIndicator4.attachToViewPager(mViewPager4.getViewPager());
+```
+
 * 简书: https://www.jianshu.com/p/42811a7c708c 
