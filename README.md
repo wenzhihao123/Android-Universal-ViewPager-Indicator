@@ -2,7 +2,7 @@
 Android 通用的ViewPager的指示器
 
 ### 效果图
-![效果图](https://user-gold-cdn.xitu.io/2019/5/20/16ad3d51d0390859?w=1080&h=1920&f=png&s=47001)
+![效果图](https://upload-images.jianshu.io/upload_images/2018489-af5b0a216201d875.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/400/format/webp)
 
 ### 自定义属性
 
